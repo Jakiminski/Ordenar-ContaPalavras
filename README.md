@@ -1,5 +1,5 @@
 # Ordenar-ContaPalavras
-2° Trabalho de Implementação de ED II
+2° Trabalho Acadêmico de Implementação de ED II
 
 # Status:
   - Arquivos de entrada ---------------------------------------------------- TO DO
