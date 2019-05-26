@@ -8,8 +8,9 @@ import random #.seed(),.randint(),.randrange(),.shuffle(obj)
 # 1.OPTIONS
 
 #1.0 Limpa console/terminal # LAMBDA FUNCTION
-clear = lambda: os.system('cls' if os.name=='nt' else 'clear') # cls for Windows, clear for other OS
-
+def clear:
+	os.system('cls' if os.name=='nt' else 'clear') # cls for Windows, clear for other OS
+	pass
 
 #1.1 Imprime opções de escolha da estrutura de dados
 def options_show(boo):

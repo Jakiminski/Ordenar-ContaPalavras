@@ -1,8 +1,7 @@
-# Ordenar-ContaPalavras
+﻿# Ordenar-ContaPalavras
 2° Trabalho Acadêmico de Implementação de ED II
 
 # Current Work List:
-  - Árvores Binárias e derivações + CURRENT TARGET +
   - I/O em arquivos e afins
   - Herança (AVL)
   - Herança (RedBlack)

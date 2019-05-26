@@ -1,7 +1,7 @@
 # Imports
 import sys ##argv, executable and exit([int or obj])
 from util import *
-from BSTree import BinNode as node # MUDAR
+from BSTree import BinNode #as node # MUDAR
 
 if __name__ == '__main__' and len(sys.argv)>1:
 
