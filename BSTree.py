@@ -1,13 +1,13 @@
 import sys #argv, executable and exit([int or obj])
-from util import clear as CLEAR_SYS
+from util import clear
 # BSTree (0/3)
 	# 0.Binary-Search (Classe-Mãe) 
 	# 1.AVL  (Herança) -- Checar Sobrecarga de Métodos
 	# 2.Red Black (Herança)
 
-class BinNode(object): #(4/7) (1/7 -- BUSCA e INSERÇÃO COM DEFEITO)
+class BinNode(object): #(4/7) (2/7 -- BUSCA e INSERÇÃO COM DEFEITO)
 	# 0.1.Construtor
-	def __init__(self,key,value=None,leftSon=None,rightSon=None):
+	def __init__(self,key,value=0,leftSon=None,rightSon=None):
 		self.key = key # String com Chave de acesso (ID)
 		self.value = value # Integer com Valor a consultar
 		# Nós-Filhos maior e menor
@@ -15,22 +15,23 @@ class BinNode(object): #(4/7) (1/7 -- BUSCA e INSERÇÃO COM DEFEITO)
 		pass # IMPORTANTE: __init__ não têm valor de retorno
 
 	# 0.2.Inserção de um nó existente
-	def insertNode(self,node):
-		if node.value < self.value: # Checar filho à esquerda 
+	def insertNode(self,key,value):
+		if key < self.key: # Checar filho à esquerda 
 			if self.leftSon is None:
 			# Não há filho à esquerda
+				node.__init__(key,value)
 				self.leftSon = node
 			else:
 			# Há filho à esquerda (recursão)
-				self.leftSon.insertNode(node)
+				self.leftSon.insertNode(key,value)
 		else: # Checar filho à direita
 			if self.rightSon is None:
-
 			# Não há filho à direita
+				node.__init__(key,value)
 				self.rightSon = node
 			else:
 			# Há filho à direita (recursão)
-				self.rightSon.insertNode(node)
+				self.rightSon.insertNode(key,value)
 		pass
 
 	# 0.3.Busca um nó na árvore (retorna o nó, caso encontre)
@@ -122,26 +123,25 @@ if __name__ == '__main__':
 
 		if option == 1:
 			key = input('Inserir Chave String')
-			value = int(input('Inserir Valor numérico (<None> para nenhum)'))
+			value = int(input('Inserir Valor numérico'))
 			
-			node = BinNode(key,value)
-			arvore.insertNode(node)
+			arvore.insertNode(key,value)
 			input('Qualquer tecla.')
-			CLEAR_SYS
+			clear
 
 		elif option == 2:
-			node = arvore.findNode(input('Buscar Nó por Chave'))
+			node = arvore.findNode(input('Buscar Nó por Chave String'))
 			print('Nó = {}'.format(node))
 			print('Chave = {}'.format(node.key))
 			print('Valor = {}'.format(node.value))
 			input('Qualquer tecla.')
-			CLEAR_SYS
+			clear
 
 		elif option == 3:
-			arvore.removeNode(input('Chave para Remoção'))
+			arvore.removeNode(input('Chave String para Remoção'))
 			print('arvore = {}\n'.format(arvore))
 			input('Qualquer tecla.')
-			CLEAR_SYS
+			clear
 
 		elif option == 4:
 			print('PreOrder:')
@@ -151,7 +151,7 @@ if __name__ == '__main__':
 			print('PosOrder:')
 			arvore.posOrder()
 			input('Qualquer tecla.')
-			CLEAR_SYS
+			clear
 		
 		
 		else: sys.exit('opção {} inexistente'.format(option))
