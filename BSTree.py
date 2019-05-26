@@ -1,26 +1,29 @@
 import sys #argv, executable and exit([int or obj])
 
-# BSTree (0/3)
+# Binary Tree (1/3)
 	# 0.Binary-Search (Classe-Mãe) 
-	# 1.AVL  (Herança) -- Checar Sobrecarga de Métodos
+	# 1.AVL (Herança)
 	# 2.Red Black (Herança)
 
-class BinNode(object): #(5/7) (1/7 -- REMOÇÃO COM DEFEITO) (Balanceamento nas classes filhas AVLNode e RBNode)
-	# 0.1.Construtor
-	def __init__(self,key,counter=int(0),leftSon=None,rightSon=None):
+class BinNode(object):
+	# 0.1. Construtor
+	def __init__(self,key,counter=int(0),father=None,leftSon=None,rightSon=None):
 		self.key = key # String com Chave de acesso (ID)
 		self.counter = counter # Integer com Valor a consultar
+		# Nó-Pai
+		self.father = father
 		# Nós-Filhos maior e menor
 		self.leftSon, self.rightSon = leftSon, rightSon 
 		pass # IMPORTANTE: __init__ não têm valor de retorno
 
-	# 0.2.Inserção de um nó existente
+	# 0.2. Inserção de um nó
 	def insertNode(self,key,counter=int(0)):
 		if key < self.key: # Checar filho à esquerda 
 			if self.leftSon is None:
 			# Não há filho à esquerda
 				node = BinNode(key,counter)
 				self.leftSon = node
+				node.father = self
 			else:
 			# Há filho à esquerda (recursão)
 				self.leftSon.insertNode(key,counter)
@@ -29,12 +32,13 @@ class BinNode(object): #(5/7) (1/7 -- REMOÇÃO COM DEFEITO) (Balanceamento nas 
 			# Não há filho à direita
 				node = BinNode(key,counter)
 				self.rightSon = node
+				node.father = self
 			else:
 			# Há filho à direita (recursão)
 				self.rightSon.insertNode(key,counter)
 		pass
 
-	# 0.3.Busca um nó na árvore (retorna o nó, caso encontre)
+	# 0.3. Busca um nó na árvore (retorna o nó, caso encontre)
 	def findNode(self,key):
 		if self.key is not None:
 			if key < self.key:
@@ -49,11 +53,14 @@ class BinNode(object): #(5/7) (1/7 -- REMOÇÃO COM DEFEITO) (Balanceamento nas 
 					return self.rightSon.findNode(key)
 				else:
 					return None
-		# Encontrou a chave existente
-		print('Chave Encontrada! {}'.format(self.key) if self is not None else 'Chave não encontrada.')
+			else: # Encontrou a chave existente
+				print('Chave Encontrada! {}'.format(self.key))
+		else:
+			print('Chave não encontrada.')
+		
 		return self
 
-	# 0.4.Remoção de um nó na árvore (retorna o nó-filho, reorganizando a estrutura)
+	# 0.4. Remoção de um nó na árvore (retorna o nó-filho, reorganizando a estrutura)
 	def removeNode(self,key):
 		if key < self.key:
 			# A chave encontrada é maior (recursão)
@@ -74,9 +81,7 @@ class BinNode(object): #(5/7) (1/7 -- REMOÇÃO COM DEFEITO) (Balanceamento nas 
 			self.rightSon.removeMenor() # Remove menor chave
 		return self
 
-	# 0.5.Balanceamento (AVL e RedBlack)
-
-	# 0.6.Imprimir árvore (preOrder,inOrder,postOrder)
+	# 0.5. Imprimir árvore (preOrder,inOrder,postOrder)
 	def preOrder(self):
 		print('\'{}\'\t{}'.format(self.key,self.counter))
 		if self.leftSon is not None:
@@ -101,7 +106,7 @@ class BinNode(object): #(5/7) (1/7 -- REMOÇÃO COM DEFEITO) (Balanceamento nas 
 		print('\'{}\'\t{}'.format(self.key,self.counter))
 		pass	
 	
-	# 0.7 Outras funcionalidades (menor, maior, removeMenor, addCount)
+	# 0.6. Outras funcionalidades (menor, maior, removeMenor, addCount)
 	def menor(self): # MENOR CHAVE
 		if self.leftSon is None:
 			return self
@@ -135,7 +140,7 @@ class BinNode(object): #(5/7) (1/7 -- REMOÇÃO COM DEFEITO) (Balanceamento nas 
 
 
 ############################## MAIN #####################################
- # TESTES APENAS
+ # TESTES VIA TERMINAL
 if __name__ == '__main__':
 
 	entrada = input('Chave String:\t')
@@ -157,8 +162,11 @@ if __name__ == '__main__':
 			if arvore.findNode(key) is not None: 
 				node = arvore.findNode(key)
 				print('Nó = {}'.format(node))
-				print('Chave = {}'.format(node.key))
-				print('Valor = {} ocorrências'.format(node.counter))
+				print('\'{}\' tem {} ocorrências'.format(node.key,node.counter))
+				print('Pai = \'{}\'\tFilhos = \'{}\',\'{}\''.format\
+				(node.father.key if node.father is not None else 'None',\
+				node.leftSon.key if node.leftSon is not None else 'None',\
+				node.rightSon.key if node.rightSon is not None else 'None'))
 			else: 
 				print('Não encontrado.')
 			input('Qualquer tecla.')
@@ -188,5 +196,3 @@ if __name__ == '__main__':
 			input('Qualquer tecla.')
 
 		else: sys.exit('opção [{}] inexistente'.format(option))
-
-
