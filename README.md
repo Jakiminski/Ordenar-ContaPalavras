@@ -3,22 +3,22 @@
 
 # Current Work List:
   - Árvores Binárias e derivações + CURRENT TARGET +
-  - I/O em arquivos e afins + Thread +
-  - Herança (AVL) + Next +
+  - I/O em arquivos e afins
+  - Herança (AVL)
   - Herança (RedBlack)
   
-# Status:
-  - Arquivos de entrada ---------------------------------------------------- TO DO
+# Status (CURRENT->NOW, CURRENT->NEXT, LATER, DUNNO):
+  - Arquivos de entrada ---------------------------------------------------- LATER
   
-  - Implementar Ordenação (QuickSort) -------------------------------------- NEXT
+  - Implementar Ordenação (QuickSort) -------------------------------------- LATER
         
-        Adaptar ordenação às listas de Ocorrências das Palavras ------------ TO DO
-        Adaptar ordenação às árvores de Ocorrências das Palavras ----------- NEXT
+        Adaptar ordenação às listas de Ocorrências das Palavras ------------ DUNNO
+        Adaptar ordenação às árvores de Ocorrências das Palavras ----------- LATER
 
-  - Implementar Estruturas de Dados: --------------------------------------- TO DO
+  - Implementar Estruturas de Dados: --------------------------------------- CURRENT
         
         HashTable ( colisões com Linked List, W Hash) ---------------------- NEXT
-        Árvores Binárias (AVL e RedBlack) ---------------------------------- CURRENT
+        Árvores Binárias (AVL e RedBlack) ---------------------------------- NOW
         Árvores B ---------------------------------------------------------- NEXT
         
-  - Gerar as saídas -------------------------------------------------------- TO DO
+  - Gerar as saídas -------------------------------------------------------- DUNNO
