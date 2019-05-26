@@ -1,5 +1,5 @@
 import sys #argv, executable and exit([int or obj])
-from util import clear
+import util
 # BSTree (0/3)
 	# 0.Binary-Search (Classe-Mãe) 
 	# 1.AVL  (Herança) -- Checar Sobrecarga de Métodos
@@ -127,7 +127,7 @@ if __name__ == '__main__':
 			
 			arvore.insertNode(key,value)
 			input('Qualquer tecla.')
-			clear
+			util.clear
 
 		elif option == 2:
 			node = arvore.findNode(input('Buscar Nó por Chave String'))
@@ -135,13 +135,13 @@ if __name__ == '__main__':
 			print('Chave = {}'.format(node.key))
 			print('Valor = {}'.format(node.value))
 			input('Qualquer tecla.')
-			clear
+			util.clear
 
 		elif option == 3:
 			arvore.removeNode(input('Chave String para Remoção'))
 			print('arvore = {}\n'.format(arvore))
 			input('Qualquer tecla.')
-			clear
+			util.clear
 
 		elif option == 4:
 			print('PreOrder:')
@@ -151,7 +151,7 @@ if __name__ == '__main__':
 			print('PosOrder:')
 			arvore.posOrder()
 			input('Qualquer tecla.')
-			clear
+			util.clear
 		
 		
 		else: sys.exit('opção {} inexistente'.format(option))
