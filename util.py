@@ -1,10 +1,15 @@
 # Utilitarios (2/4)
 
-import sys #argv, executable and exit([int or obj])
-import random #seed(),randint(),randrange(),shuffle(obj)
+import sys #.argv, .executable and .exit([int or obj])
+import os # .system, .name ( for OperationalSystem), 
+import random #.seed(),.randint(),.randrange(),.shuffle(obj)
 
 
 # 1.OPTIONS
+
+#1.0 Limpa console/terminal # LAMBDA FUNCTION
+clear = lambda: os.system('cls' if os.name=='nt' else 'clear') # cls for Windows, clear for other OS
+
 
 #1.1 Imprime opções de escolha da estrutura de dados
 def options_show(boo):
@@ -71,15 +76,18 @@ def particionaAleatorio(vet,inicio,fim):
 	# executar outro método de partição
 	return particionaFim(vet,inicio,fim)
 
+'''
+if __name__ == '__main__':
 
-vetor = [5,9,6,4,4,2,0,4,3,2,6,1]# lista indexada
+	vetor = [5,9,6,4,4,2,0,4,3,2,6,1]# lista indexada
 
-print('Antes: ')
-print(vetor)
-print('Aplicando o QuickSort.')
-vetor = quickSort(vetor,0,len(vetor)-1) #arg está implícito
-print('Após: ')
-print(vetor)
+	print('Antes: ')
+	print(vetor)
+	print('Aplicando o QuickSort.')
+	vetor = quickSort(vetor,0,len(vetor)-1) #arg está implícito
+	print('Após: ')
+	print(vetor)
+'''
 
 # 3.INPUT FILE
 
