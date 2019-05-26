@@ -9,7 +9,7 @@
 # Status (CURRENT->NOW, CURRENT->NEXT, LATER, DUNNO):
   - Arquivos de entrada ---------------------------------------------------- LATER
   
-  - Implementar Ordenação (QuickSort) -------------------------------------- LATER
+  - Implementar Ordenação das ocorrências das palavras (QuickSort) --------- LATER
         
         Adaptar ordenação às listas de Ocorrências das Palavras ------------ DUNNO
         Adaptar ordenação às árvores de Ocorrências das Palavras ----------- LATER
