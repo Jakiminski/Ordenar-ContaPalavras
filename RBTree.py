@@ -2,8 +2,8 @@ from BSTree import BSNode
 
 class RBNode(BinNode):#(0/5) (NENHUM BUG)
 	# 1.1. Construtor
-	def __init__(self,color ='BLACK'):
-		BinNode.__init__(key,counter,father,leftSon,rightSon) #Super
+	def __init__(self,key,color ='BLACK'):
+		super(RBNode,self).__init__(key) #Super
 		self.color = color # Cor 'BLACK' ou 'RED'
 		pass
 
