@@ -8,10 +8,10 @@ class BinNode(object):
 	def __init__(self,key,father=None,leftSon=None,rightSon=None):
 		self.key = key # A palavra lida é a própria chave 
 		self.counter = 1 # conta ocorrências de key no arquivo
-		# Nó-Pai
-		self.father = father
+		self.father = father# Nó-Pai
 		# Nós-Filhos maior e menor
-		self.leftSon, self.rightSon = leftSon, rightSon 
+		self.leftSon, self.rightSon = leftSon, rightSon
+		self.height = 0 # Altura do nó
 		pass # IMPORTANTE: __init__ não têm valor de retorno
 
 	# 0.2. Inserção de um nó
@@ -104,7 +104,22 @@ class BinNode(object):
 		print('\'{}\'\t{}'.format(self.key,self.counter))
 		pass	
 	
-	# 0.6. Outras funcionalidades (menor, maior, removeMenor, addCount)
+	# 0.6. Outras funcionalidades (altura,menor, maior, removeMenor, addCount)
+	def altura(self): # Altura da árvore = 1 + altura da maior subárvore
+		if self is None:
+			return -1
+		else:
+			# Definir subárvore de maior altura
+			heightL = self.leftSon.altura() if self.leftSon is not None else -1
+			heightR = self.rightSon.altura() if self.rightSon is not None else -1
+			maior = heightL if heightL>=heightR else heightR
+			self.height = maior + 1 # Atribuir altura relativa do nó
+			return maior + 1 # altura >= 0
+
+	def balanceFactor(self): # Fator de balanceamento
+		altura = (self.leftSon.altura() if self.leftSon is not None else -1) - (self.rightSon.altura() if self.rightSon is not None else -1)
+		return altura
+
 	def menor(self): # MENOR CHAVE
 		if self.leftSon is None:
 			return self

@@ -1,33 +1,60 @@
 from BSTree import *
 
-class AVLNode(BinNode):#(1/5) (NENHUM BUG)
+class AVLNode(object):#(1/5) (NENHUM BUG)
 	# 1.1. Construtor
-	def __init__(self,key,height=int(0)):
-		super(AVLNode,self).__init__(key) #Super
+	def __init__(self,key,height,father=None,leftSon=None,rightSon=None):
+		self.key = key # A palavra lida é a própria chave 
+		self.counter = 1 # conta ocorrências de key no arquivo
+		self.father = father# Nó-Pai
+		# Nós-Filhos maior e menor
+		self.leftSon, self.rightSon = leftSon, rightSon
 		self.height = height # Altura do nó
 		pass
 
-	# 1.2. Inserção de um nó
-
-	# 1.3. Remoção de um nó na árvore (retorna o nó-filho, reorganizando a estrutura)
-
 	# 1.4. Balanceamento (AVL)
 
-	# 1.5. Outras funcionalidades (altura,balanceFactor,rotateLeft,rotateRight,rotateLR,rotateRL)
+	def insertNode(self,key):
+		# Inserir nó	
+		if key < self.key: # Checar filho à esquerda 
+			if self.leftSon is None:
+			# Não há filho à esquerda
+				node = BinNode(key)
+				self.leftSon = node
+				node.father = self
+			else:
+			# Há filho à esquerda (recursão)
+				self.leftSon.insertNode(key)
+		else: # Checar filho à direita
+			if self.rightSon is None:
+			# Não há filho à direita
+				node = BinNode(key)
+				self.rightSon = node
+				node.father = self
+			else:
+			# Há filho à direita (recursão)
+				self.rightSon.insertNode(key)
+		pass
 
-	def altura(self): # Altura da árvore = 1 + altura da maior subárvore
-		if self is None:
-			return -1
-		else:
-			# Definir subárvore de maior altura
-			heightL = self.leftSon.altura()
-			heightR = self.rightSon.altura()
-			maior = heightL if heightL>=heightR else heightR
-			self.height = maior + 1# Atribuir altura relativa do nó
-			return maior + 1 # altura >= 0
+	def balance(self):
+		# Checar balanceamento
+		print('FUNCIONAAAAAAAAAAA')
+		dir(self)
+		fator = self.balanceFactor()
+		# Executar balanceamento
+		if fator > 1:
+			if self.leftSon.balanceFactor() > 0:
+				self.rotateRight()
+			else:
+				self.rotateLR()
+		elif fator < -1:
+			if self.rightSon.balanceFactor() < 0:
+				self.rotateLeft()
+			else:
+				self.rotateRL()
+		pass
 
-	def balanceFactor(self): # Fator de balanceamento
-		return self.leftSon.altura() - self.rightSon.altura()
+
+	# 1.5. Outras funcionalidades (rotateLeft,rotateRight,rotateLR,rotateRL)
 
 	def rotateLeft(self): # Rotação do nó "O filho se torna o pai, e o pai se torna o filho" (Kal-El)
 		if self is not None:
@@ -58,10 +85,19 @@ class AVLNode(BinNode):#(1/5) (NENHUM BUG)
 			self.altura()
 			node.altura()
 		return self
-	'''
-	def rotateLR(): # Dupla-Direita
-	def rotateRL(): # Dupla-Esquerda
-	'''
+	
+	def rotateLR(self): # Rotação Dupla-Direita
+		if self is not None:
+			self.leftSon.rotateLeft()
+			return self.rotateRight()
+		else: return None
+
+	def rotateRL(self): # Rotação Dupla-Esquerda
+		if self is not None:
+			self.rightSon.rotateRight()
+			return self.rotateLeft()
+		else: return None
+	
 
 ############################## MAIN #####################################
 # TESTES VIA TERMINAL
@@ -83,6 +119,7 @@ if __name__ == '__main__':
 			if arvore.findNode(key) is not None: 
 				node = arvore.findNode(key)
 				print('Nó = {}'.format(node))
+				print('Altura = {}'.format(node.height))
 				print('\'{}\' tem {} ocorrências'.format(node.key,node.counter))
 				print('Pai = \'{}\'\tFilhos = \'{}\',\'{}\''.format\
 				(node.father.key if node.father is not None else 'None',\
