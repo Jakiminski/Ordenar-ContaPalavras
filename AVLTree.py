@@ -211,7 +211,7 @@ if __name__ == '__main__':
 	arvore = AVLNode(entrada)
 	
 	while True:
-		option = int(input('\n\n[1]Inserir(node = chave + [valor])\n[2]Buscar(chave)\n[3]Imprimir Árvore\n[5]Adicionar Ocorrência\t\n'))
+		option = int(input('\n\n[1]Inserir(node = chave + [valor])\n[2]Buscar(chave)\n[3]Imprimir Árvore\n[4]Adicionar Ocorrência\t\n'))
 
 		if option == 1:
 			key = input('Inserir Chave String\t')
@@ -249,7 +249,7 @@ if __name__ == '__main__':
 			arvore.posOrder()
 			input('Qualquer tecla.')
 		
-		elif option == 5:
+		elif option == 4:
 			key = input('Buscar Nó por Chave String\t')
 			if arvore.findNode(key) is not None: 
 				print('Chave \'{}\' tinha {} ocorrências'.format(key,arvore.findNode(key).counter))
