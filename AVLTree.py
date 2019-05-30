@@ -4,21 +4,20 @@ class AVLNode(object):#(1/5) (NENHUM BUG)
 	# 1.1. Construtor
 
 	def __init__(self,key,height=int(0),father=None,leftSon=None,rightSon=None):
-		self.key = key # A palavra lida é a própria chave 
+		self.key = key.lower() # A palavra lida é a própria chave, em Lowercase
 		self.counter = 1 # conta ocorrências de key no arquivo
 		self.height = height # Altura do nó
 
 		self.father = father # Nó-Pai
 		# Nós-Filhos maior e menor
 		self.leftSon, self.rightSon = leftSon, rightSon
-
 		pass
 
 	# 1.2. Inserção de nó
 
 	def insertNode(self,key):
 		# Inserir nó	
-		if key < self.key: # Checar filho à esquerda 
+		if key.lower() < self.key: # Checar filho à esquerda 
 			if self.leftSon is None:
 			# Não há filho à esquerda
 				node = AVLNode(key)
@@ -65,13 +64,13 @@ class AVLNode(object):#(1/5) (NENHUM BUG)
 
 	def findNode(self,key):
 		if self.key is not None:
-			if key < self.key:
+			if key.lower() < self.key:
 				# A chave encontrada é maior, se existir (recursão)
 				if self.leftSon:
 					return self.leftSon.findNode(key)
 				else:
 			 		return None
-			elif key > self.key:
+			elif key.lower() > self.key:
 				# A chave encontrada é menor, se existir (recursão)
 				if self.rightSon:
 					return self.rightSon.findNode(key)
@@ -117,7 +116,8 @@ class AVLNode(object):#(1/5) (NENHUM BUG)
 			node = self.rightSon
 			node.father = self.father
 			# adotar filho de node 
-			if node.leftSon is not None: node.leftSon.father = self
+			if node.leftSon is not None: 
+				node.leftSon.father = self
 			self.rightSon = node.leftSon 
 			# apadrinhado
 			self.father, node.leftSon = node, self
@@ -132,7 +132,8 @@ class AVLNode(object):#(1/5) (NENHUM BUG)
 			node = self.leftSon
 			node.father = self.father
 			# adotar filho de node 
-			if node.rightSon is not None: node.rightSon.father = self
+			if node.rightSon is not None:
+				node.rightSon.father = self
 			self.leftSon = node.rightSon 
 			# apadrinhado
 			self.father, node.rightSon = node, self
@@ -211,7 +212,7 @@ if __name__ == '__main__':
 	arvore = AVLNode(entrada)
 	
 	while True:
-		option = int(input('\n\n[1]Inserir(node = chave + [valor])\n[2]Buscar(chave)\n[3]Imprimir Árvore\n[4]Adicionar Ocorrência\t\n'))
+		option = int(input('\n\n[1]Inserir(node = chave + [valor])\n[2]Buscar(chave)\n[3]Imprimir Árvore\n[5]Adicionar Ocorrência\t\n'))
 
 		if option == 1:
 			key = input('Inserir Chave String\t')
