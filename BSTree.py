@@ -1,10 +1,8 @@
-# Binary Tree (1/3)
-	# 0.Binary-Search (Classe-Mãe) 
-	# 1.AVL (Herança)
-	# 2.Red Black (Herança)
+# Binary Search Tree 
 
 class BinNode(object):
 	# 0.1. Construtor
+
 	def __init__(self,key,father=None,leftSon=None,rightSon=None):
 		self.key = key # A palavra lida é a própria chave 
 		self.counter = 1 # conta ocorrências de key no arquivo
@@ -15,6 +13,7 @@ class BinNode(object):
 		pass # IMPORTANTE: __init__ não têm valor de retorno
 
 	# 0.2. Inserção de um nó
+
 	def insertNode(self,key):
 		if key < self.key: # Checar filho à esquerda 
 			if self.leftSon is None:
