@@ -1,15 +1,16 @@
 # RedBlack Tree
 
-class RBNode(object):#(0/5) (NENHUM BUG)
+class RBNode(object):
 	# 1.1. Construtor
-	def __init__(self,key,color='RED',father=None,leftSon=None,rightSon=None):
+
+	def __init__(self,key,color='RED',parent=None,leftSon=None,rightSon=None):
 		self.key = key.lower() # A palavra lida é a própria chave  em Lowercase
 		self.counter = 1 # conta ocorrências de key no arquivo
 		self.color = color.upper() # Cor 'BLACK' ou 'RED' em UpperCase
-		self.father = father # Nó-Pai
+		self.parent = parent # Nó-Pai
 		# Nós-Filhos maior e menor
 		self.leftSon, self.rightSon = leftSon, rightSon
-		if self.father is None:
+		if self.parent is None:
 			self.coloring()
 		pass
 
@@ -23,7 +24,7 @@ class RBNode(object):#(0/5) (NENHUM BUG)
 			# Não há filho à esquerda
 				node = RBNode(key)
 				self.leftSon = node
-				node.father = self
+				node.parent = self
 			else:
 			# Há filho à esquerda (recursão)
 				self.leftSon.insertNode(key)
@@ -32,7 +33,7 @@ class RBNode(object):#(0/5) (NENHUM BUG)
 			# Não há filho à direita
 				node = RBNode(key)
 				self.rightSon = node
-				node.father = self
+				node.parent = self
 			else:
 			# Há filho à direita (recursão)
 				self.rightSon.insertNode(key)
@@ -95,12 +96,12 @@ class RBNode(object):#(0/5) (NENHUM BUG)
 		if self is not None:
 			# node é filho direito para fazer a rotação
 			node = self.rightSon
-			node.father = self.father
+			node.parent = self.parent
 			# adotar filho de node 
-			if node.leftSon is not None: node.leftSon.father = self
+			if node.leftSon is not None: node.leftSon.parent = self
 			self.rightSon = node.leftSon 
 			# apadrinhado
-			self.father, node.leftSon = node, self
+			self.parent, node.leftSon = node, self
 			# atualizar altura dos nós e suas subárvores
 			self.altura()
 			node.altura()
@@ -110,43 +111,43 @@ class RBNode(object):#(0/5) (NENHUM BUG)
 		if self is not None:
 			# node é filho esquerdo para fazer a rotação
 			node = self.leftSon
-			node.father = self.father
+			node.parent = self.parent
 			# adotar filho de node 
-			if node.rightSon is not None: node.rightSon.father = self
+			if node.rightSon is not None: node.rightSon.parent = self
 			self.leftSon = node.rightSon 
 			# apadrinhado
-			self.father, node.rightSon = node, self
+			self.parent, node.rightSon = node, self
 			# atualizar altura dos nós e suas subárvores
 			self.altura()
 			node.altura()
 		return self
 
 	def coloring(self): # Muda cor do nó
-		if self.father is None:
+		if self.parent is None:
 			self.color = 'BLACK'
 		else:
-			if self.father.color is 'BLACK':
+			if self.parent.color is 'BLACK':
 				pass
 			if self.uncle().color is 'RED':
 				# Tio Vermelho --> Pai e Tio Pretos e Avô Vermelho
-				self.father.color = 'BLACK'
+				self.parent.color = 'BLACK'
 				self.uncle().color = 'BLACK'
 				grandpa = self.grandpa()
 				grandpa.color = 'RED'
 				grandpa.coloring() # Colorir recursivamente
 			else:
-				if self.key > self.father.key and self.key <= self.grandpa().key:
-					self.father.rotateLeft()
+				if self.key > self.parent.key and self.key <= self.grandpa().key:
+					self.parent.rotateLeft()
 					node = self.leftSon
 				else:
-					self.father.rotateRight()
+					self.parent.rotateRight()
 					node = self.rightSon
 
-				node.father.color = 'BLACK'
+				node.parent.color = 'BLACK'
 				if node.grandpa() is not None:
 					node.grandpa().color = 'RED'
 
-				if node.key <= node.father.key and node.key <= node.grandpa().key:
+				if node.key <= node.parent.key and node.key <= node.grandpa().key:
 					node.grandpa().rotateRight()
 				else:
 					node.grandpa().rotateLeft()
@@ -156,9 +157,9 @@ class RBNode(object):#(0/5) (NENHUM BUG)
 	# 1.7. Outras funcionalidades (grandpa,uncle,addCount)
 
 	def grandpa(self): # Encontrar o avô
-		if self.father is not None: # Se tem um pai, pode haver um avô
-			dad = self.father
-			return dad.father
+		if self.parent is not None: # Se tem um pai, pode haver um avô
+			dad = self.parent
+			return dad.parent
 		else:
 			return None
 
@@ -172,16 +173,19 @@ class RBNode(object):#(0/5) (NENHUM BUG)
 		else: 
 			return None
 
-	def addCount(self,key):
+	def addCount(self,key): # Adiciona ocorrência da palavra
 		if self.findNode(key) is not None:
+			# Elemento já inserido -> Incrementar qnt de ocorrencias
 			node = self.findNode(key)
 			if node.counter > 0:
 				node.counter += 1
 				return node.counter
 			else:
-				print('Contador menor que 0.')
-		else: 
-			return int(-1)
+				print('Contador com Erros. {} ocorrências'.format(node.counter))
+		else:
+			# Inserir elemento (coloring incluso)
+			self.insertNode(key)
+			return self.findNode(key).counter
 
 ############################## MAIN #####################################
 # TESTES VIA TERMINAL
@@ -210,7 +214,7 @@ if __name__ == '__main__':
 				print('Altura = {}'.format(node.height))
 				print('\'{}\' tem {} ocorrências'.format(node.key,node.counter))
 				print('Pai = \'{}\'\tFilhos = \'{}\',\'{}\''.format\
-				(node.father.key if node.father is not None else 'None',\
+				(node.parent.key if node.parent is not None else 'None',\
 				node.leftSon.key if node.leftSon is not None else 'None',\
 				node.rightSon.key if node.rightSon is not None else 'None'))
 			else: 

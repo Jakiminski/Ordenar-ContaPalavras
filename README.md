@@ -24,8 +24,8 @@
 
   - Implementar Estruturas de Dados
         
-        HashTable ( colisões com Linked List, W Hash) ---------------------------------- NEXT
+        HashTable ( colisões com Linked List, W Hash) ---------------------------------- CURRENT
         Árvores Binárias (AVL e RedBlack) ---------------------------------------------- DONE
-        Árvores B ---------------------------------------------------------------------- CURRENT
+        Árvores B ---------------------------------------------------------------------- NEXT
         
   - Gerar as saídas

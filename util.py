@@ -5,14 +5,14 @@ import os # .system, .name ( for OperationalSystem),
 import random #.seed(),.randint(),.randrange(),.shuffle(obj)
 
 
-# 1.OPTIONS
+# 1. OPTIONS
 
-#1.0 Limpa console/terminal # LAMBDA FUNCTION
+#1.0. Limpa console/terminal # LAMBDA FUNCTION
 def clear:
 	os.system('cls' if os.name=='nt' else 'clear') # cls for Windows, clear for other OS
 	pass
 
-#1.1 Imprime opções de escolha da estrutura de dados
+#1.1. Imprime opções de escolha da estrutura de dados
 def options_show(boo):
 		if boo: 
 			print('Insira:\n\'hash_lista\', \'hash_duplo\', \'avl\', \'redblack\' ou \'arvore_b\'.')
@@ -20,7 +20,7 @@ def options_show(boo):
 			print('Iniciando...')
 		pass
 
-#1.2 Checa Se imprime as opcoes ou continua loop
+#1.2. Checa Se imprime as opcoes ou continua loop
 #Retorna um boolean para controle de loop
 def options_check(str1):
 	if (str1.lower() == 'hash_lista') or (str1.lower() == 'hash_duplo'):
@@ -30,7 +30,37 @@ def options_check(str1):
 	else: 
 		return True # continuar o loop
 
-# 2.QUICKSORT
+#1.3. Conversor de string para valor numérico 
+def stringToNumber(word):
+	sumChar = 0 # somatório
+	for letter in word:
+		sumChar += ord(letter) # conversão de cada caractere
+	return sumChar # valor final da soma
+
+#1.4. Aproximação Log2 N
+def log(a,b=int(2)):
+	if a <= 0 and b <= 0:
+		return -1
+	else:
+	    result, garbage = 0, 0
+	    quo = a
+	    while (quo>b-1):
+	    	garbage = int(quo % b)
+	        quo = int(quo / b)
+	        result += 1
+	    #print(quo)
+        #print('log{} {} = {}'.format(b,a,result))
+	    return result
+
+#1.5. Lê e recebe palavras do arquivo fonte (split, sprint)
+def getWordList(fileInput,):
+lista = [] # lista vazia
+	with open(fileInput,'r') as file:
+		line = file.readlines()# lendo 1 linha por vez
+		lista.extend(line.split()) # append all words from line(list), not the list itself as object (as .append())
+		
+		return wordList
+# 2. QUICKSORT
 
 '''
 QuickSort para ordem crescente.

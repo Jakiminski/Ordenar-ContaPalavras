@@ -3,10 +3,10 @@
 class BinNode(object):
 	# 0.1. Construtor
 
-	def __init__(self,key,father=None,leftSon=None,rightSon=None):
+	def __init__(self,key,parent=None,leftSon=None,rightSon=None):
 		self.key = key # A palavra lida é a própria chave 
 		self.counter = 1 # conta ocorrências de key no arquivo
-		self.father = father# Nó-Pai
+		self.parent = parent# Nó-Pai
 		# Nós-Filhos maior e menor
 		self.leftSon, self.rightSon = leftSon, rightSon
 		self.height = 0 # Altura do nó
@@ -20,7 +20,7 @@ class BinNode(object):
 			# Não há filho à esquerda
 				node = BinNode(key)
 				self.leftSon = node
-				node.father = self
+				node.parent = self
 			else:
 			# Há filho à esquerda (recursão)
 				self.leftSon.insertNode(key)
@@ -29,7 +29,7 @@ class BinNode(object):
 			# Não há filho à direita
 				node = BinNode(key)
 				self.rightSon = node
-				node.father = self
+				node.parent = self
 			else:
 			# Há filho à direita (recursão)
 				self.rightSon.insertNode(key)
@@ -146,7 +146,7 @@ class BinNode(object):
 				node.counter += 1
 				return node.counter
 			else:
-				print('Contador menor que 0.')
+				print('Contador com Erros. {} ocorrências'.format(node.counter))
 		else: return int(-1)
 			
 
@@ -173,7 +173,7 @@ if __name__ == '__main__':
 				print('Nó = {}'.format(node))
 				print('\'{}\' tem {} ocorrências'.format(node.key,node.counter))
 				print('Pai = \'{}\'\tFilhos = \'{}\',\'{}\''.format\
-				(node.father.key if node.father is not None else 'None',\
+				(node.parent.key if node.parent is not None else 'None',\
 				node.leftSon.key if node.leftSon is not None else 'None',\
 				node.rightSon.key if node.rightSon is not None else 'None'))
 			else: 

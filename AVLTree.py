@@ -3,12 +3,12 @@
 class AVLNode(object):#(1/5) (NENHUM BUG)
 	# 1.1. Construtor
 
-	def __init__(self,key,height=int(0),father=None,leftSon=None,rightSon=None):
+	def __init__(self,key,height=int(0),parent=None,leftSon=None,rightSon=None):
 		self.key = key.lower() # A palavra lida é a própria chave, em Lowercase
 		self.counter = 1 # conta ocorrências de key no arquivo
 		self.height = height # Altura do nó
 
-		self.father = father # Nó-Pai
+		self.parent = parent # Nó-Pai
 		# Nós-Filhos maior e menor
 		self.leftSon, self.rightSon = leftSon, rightSon
 		pass
@@ -22,7 +22,7 @@ class AVLNode(object):#(1/5) (NENHUM BUG)
 			# Não há filho à esquerda
 				node = AVLNode(key)
 				self.leftSon = node
-				node.father = self
+				node.parent = self
 			else:
 			# Há filho à esquerda (recursão)
 				self.leftSon.insertNode(key)
@@ -31,7 +31,7 @@ class AVLNode(object):#(1/5) (NENHUM BUG)
 			# Não há filho à direita
 				node = AVLNode(key)
 				self.rightSon = node
-				node.father = self
+				node.parent = self
 			else:
 			# Há filho à direita (recursão)
 				self.rightSon.insertNode(key)
@@ -114,13 +114,13 @@ class AVLNode(object):#(1/5) (NENHUM BUG)
 		if self is not None:
 			# node é filho direito para fazer a rotação
 			node = self.rightSon
-			node.father = self.father
+			node.parent = self.parent
 			# adotar filho de node 
 			if node.leftSon is not None: 
-				node.leftSon.father = self
+				node.leftSon.parent = self
 			self.rightSon = node.leftSon 
 			# apadrinhado
-			self.father, node.leftSon = node, self
+			self.parent, node.leftSon = node, self
 			# atualizar altura dos nós e suas subárvores
 			self.altura()
 			node.altura()
@@ -130,13 +130,13 @@ class AVLNode(object):#(1/5) (NENHUM BUG)
 		if self is not None:
 			# node é filho esquerdo para fazer a rotação
 			node = self.leftSon
-			node.father = self.father
+			node.parent = self.parent
 			# adotar filho de node 
 			if node.rightSon is not None:
-				node.rightSon.father = self
+				node.rightSon.parent = self
 			self.leftSon = node.rightSon 
 			# apadrinhado
-			self.father, node.rightSon = node, self
+			self.parent, node.rightSon = node, self
 			# atualizar altura dos nós e suas subárvores
 			self.altura()
 			node.altura()
@@ -193,15 +193,19 @@ class AVLNode(object):#(1/5) (NENHUM BUG)
 			self.leftSon = self.leftSon.removeMenor() # Procura recursivamente o menor
 		return self
 
-	def addCount(self,key):
+	def addCount(self,key):  # Adiciona ocorrência da palavra
 		if self.findNode(key) is not None:
+			# Elemento já inserido -> Incrementar qnt de ocorrencias
 			node = self.findNode(key)
 			if node.counter > 0:
 				node.counter += 1
 				return node.counter
 			else:
-				print('Contador menor que 0.')
-		else: return int(-1)
+				print('Contador com Erros. {} ocorrências'.format(node.counter))
+		else: 
+			# Inserir elemento (coloring incluso)
+			self.insertNode(key)
+			return self.findNode(key).counter
 
 ############################## MAIN #####################################
 # TESTES VIA TERMINAL
@@ -221,8 +225,8 @@ if __name__ == '__main__':
 			if arvore.findNode(key) is not None:
 				print('Checando balanceamento...')
 				node = arvore.findNode(key)
-				if node.father is not None:
-					node.father.balance()
+				if node.parent is not None:
+					node.parent.balance()
 			input('Qualquer tecla.')
 
 		elif option == 2:
@@ -233,7 +237,7 @@ if __name__ == '__main__':
 				print('Altura = {}'.format(node.height))
 				print('\'{}\' tem {} ocorrências'.format(node.key,node.counter))
 				print('Pai = \'{}\'\tFilhos = \'{}\',\'{}\''.format\
-				(node.father.key if node.father is not None else 'None',\
+				(node.parent.key if node.parent is not None else 'None',\
 				node.leftSon.key if node.leftSon is not None else 'None',\
 				node.rightSon.key if node.rightSon is not None else 'None'))
 			else: 
