@@ -24,7 +24,7 @@
 
   - Implementar Estruturas de Dados
         
-        HashTable ( colisões com Linked List, W Hash) ---------------------------------- CURRENT
+        HashTable ( colisões com Linked List, W Hash) ---------------------------------- DONE
         Árvores Binárias (AVL e RedBlack) ---------------------------------------------- DONE
         Árvores B ---------------------------------------------------------------------- NEXT
         
