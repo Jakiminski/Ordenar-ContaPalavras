@@ -3,11 +3,9 @@
 
 # Current Work List:
   - Ler arquivo;
-  - Armazenar palavras na árvore binária;
+  - Armazenar palavras nas estruturas de dados;
   - Contagem de ocorrências;
-  - Implementar Balanceamento AVL e RedBlack;
-  - Implementar Inserção e Remoção AVL;
-  - Implementar Inserção e Remoção RedBlack;
+  - Testar AVL e RedBlack;
   
 # TO DO:
         Árvore B; 
