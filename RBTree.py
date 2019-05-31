@@ -6,18 +6,19 @@ class RBNode(object):#(0/5) (NENHUM BUG)
 		self.key = key.lower() # A palavra lida é a própria chave  em Lowercase
 		self.counter = 1 # conta ocorrências de key no arquivo
 		self.color = color.upper() # Cor 'BLACK' ou 'RED' em UpperCase
-
 		self.father = father # Nó-Pai
 		# Nós-Filhos maior e menor
 		self.leftSon, self.rightSon = leftSon, rightSon
+		if self.father is None:
+			self.coloring()
 		pass
 
 	# 1.2. Inserção de nó
 
 	def insertNode(self,key):
-
 		# Inserir nó	
 		if key.lower() < self.key: # Checar filho à esquerda 
+			node = None
 			if self.leftSon is None:
 			# Não há filho à esquerda
 				node = RBNode(key)
@@ -35,30 +36,10 @@ class RBNode(object):#(0/5) (NENHUM BUG)
 			else:
 			# Há filho à direita (recursão)
 				self.rightSon.insertNode(key)
-
-		# Corrigir Inserção (CASE 1 é raiz PRETA, pois não tem pai)
-		if node.father is not None: # CASE 2,3,4
-			# CASE 2 -- Tio é vermelho --> Recolorir Pai, Tio e Avô
-			if node.father.father is not None: 
-				grandpa = node.father.father
-				
-				
-				if node.father is grandpa.leftSon: # Tio à direita
-					uncle = grandpa.rightSon 
-					
-				elif node.father is grandpa.rightSon: # Tio à esquerda
-					uncle = grandpa.leftSon
-				else:
-					uncle = None
-				if uncle is not None:
-					# RECOLORIR PAI, TIO e AVÔ
-					if uncle.color is 'RED': 
-						node.father.changeColor()
-						uncle.changeColor()
-						grandpa.changeColor()
-
-			# CASE 3 -- Pai Vermelho --> 
-			# CASE 4 -- 
+			
+		# Checar Propriedades (Cores e Rotação)
+		if node is not None:
+			node.coloring()
 		pass
 	
 	#1.4 Busca
@@ -108,7 +89,7 @@ class RBNode(object):#(0/5) (NENHUM BUG)
 		print('\'{}\'\t{}'.format(self.key,self.counter))
 		pass	
 
-	# 1.6. Rotações e mudança de Cor para balanceamento (rotateLeft,rotateRight, changeColor)
+	# 1.6. Balanceamento (rotateLeft,rotateRight,coloring)
 
 	def rotateLeft(self): # Rotação do nó "O filho se torna o pai, e o pai se torna o filho" (Kal-El)
 		if self is not None:
@@ -140,43 +121,56 @@ class RBNode(object):#(0/5) (NENHUM BUG)
 			node.altura()
 		return self
 
-	def changeColor(self): # Muda cor do nó
-		if self is not None:
-			color = 'BLACK' if self.color is 'RED' else 'RED'
-			self.color = color 
+	def coloring(self): # Muda cor do nó
+		if self.father is None:
+			self.color = 'BLACK'
+		else:
+			if self.father.color is 'BLACK':
+				pass
+			if self.uncle().color is 'RED':
+				# Tio Vermelho --> Pai e Tio Pretos e Avô Vermelho
+				self.father.color = 'BLACK'
+				self.uncle().color = 'BLACK'
+				grandpa = self.grandpa()
+				grandpa.color = 'RED'
+				grandpa.coloring() # Colorir recursivamente
+			else:
+				if self.key > self.father.key and self.key <= self.grandpa().key:
+					self.father.rotateLeft()
+					node = self.leftSon
+				else:
+					self.father.rotateRight()
+					node = self.rightSon
+
+				node.father.color = 'BLACK'
+				if node.grandpa() is not None:
+					node.grandpa().color = 'RED'
+
+				if node.key <= node.father.key and node.key <= node.grandpa().key:
+					node.grandpa().rotateRight()
+				else:
+					node.grandpa().rotateLeft()
 		pass
 
-	# 1.7. Outras funcionalidades (altura,menor, maior, removeMenor, addCount)
-	
-	def altura(self): # Altura da árvore = 1 + altura da maior subárvore
-		if self is None:
-			return -1
+
+	# 1.7. Outras funcionalidades (grandpa,uncle,addCount)
+
+	def grandpa(self): # Encontrar o avô
+		if self.father is not None: # Se tem um pai, pode haver um avô
+			dad = self.father
+			return dad.father
 		else:
-			# Definir subárvore de maior altura
-			heightL = self.leftSon.altura() if self.leftSon is not None else -1
-			heightR = self.rightSon.altura() if self.rightSon is not None else -1
-			maior = heightL if heightL>=heightR else heightR
-			return maior + 1 # altura >= 0
+			return None
 
-	def menor(self): # MENOR CHAVE
-		if self.leftSon is None:
-			return self
+	def uncle(self): # Encontrar o tio de um nó
+		# Comparando chave para determinar se o tio está à esquerda ou direita
+		if self.grandpa() is not None:
+			if self.key > self.grandpa().key:
+				return self.grandpa().leftSon
+			else:
+				return self.grandpa().rightSon
 		else: 
-			return self.leftSon.menor()
-
-	def maior(self): # MAIOR CHAVE
-		if self.rightSon is None:
-			return self
-		else: 
-			return self.rightSon.menor()
-
-	def removeMenor(self): # REMOVE MENOR CHAVE
-		if self.leftSon is None:
-			# Não há elemento menor que o nó atual
-			return self.rightSon # devolve o outro filho no lugar, se existir
-		else:
-			self.leftSon = self.leftSon.removeMenor() # Procura recursivamente o menor
-		return self
+			return None
 
 	def addCount(self,key):
 		if self.findNode(key) is not None:
