@@ -2,30 +2,13 @@
 2° Trabalho Acadêmico de Implementação de ED II
 
 # Current Work List:
-  - Ler arquivo;
-  - Armazenar palavras nas estruturas de dados;
-  - Contagem de ocorrências;
-  - Testar AVL e RedBlack;
+  - [NOW] Ler arquivo;
+  - [NOW] Armazenar palavras nas estruturas de dados;
+  - [NEXT] Contagem de ocorrências;
+  - [NEXT]Depurar as TADs;
   
 # TO DO:
         Árvore B; 
-        Hash;
-        Ordenação a partir de Árvores e de listas;
+        Ordenação das ocorrências;
         Escrever arquivo de saída;
-  
-  
-# Status (CURRENT->NOW, CURRENT->NEXT, LATER, DUNNO):
-  - Arquivos de entrada
-  
-  - Implementar Ordenação DECRESCENTE das ocorrências das palavras (QuickSort)
         
-        Adaptar ordenação às listas de Ocorrências das Palavras ------------------------ LATER
-        Adaptar ordenação às árvores de Ocorrências das Palavras ----------------------- LATER
-
-  - Implementar Estruturas de Dados
-        
-        HashTable ( colisões com Linked List, W Hash) ---------------------------------- DONE
-        Árvores Binárias (AVL e RedBlack) ---------------------------------------------- DONE
-        Árvores B ---------------------------------------------------------------------- NEXT
-        
-  - Gerar as saídas
