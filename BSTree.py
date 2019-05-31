@@ -1,41 +1,38 @@
-import sys #argv, executable and exit([int or obj])
-
-# Binary Tree (1/3)
-	# 0.Binary-Search (Classe-Mãe) 
-	# 1.AVL (Herança)
-	# 2.Red Black (Herança)
+# Binary Search Tree 
 
 class BinNode(object):
 	# 0.1. Construtor
-	def __init__(self,key,counter=int(0),father=None,leftSon=None,rightSon=None):
-		self.key = key # String com Chave de acesso (ID)
-		self.counter = counter # Integer com Valor a consultar
-		# Nó-Pai
-		self.father = father
+
+	def __init__(self,key,father=None,leftSon=None,rightSon=None):
+		self.key = key # A palavra lida é a própria chave 
+		self.counter = 1 # conta ocorrências de key no arquivo
+		self.father = father# Nó-Pai
 		# Nós-Filhos maior e menor
-		self.leftSon, self.rightSon = leftSon, rightSon 
+		self.leftSon, self.rightSon = leftSon, rightSon
+		self.height = 0 # Altura do nó
 		pass # IMPORTANTE: __init__ não têm valor de retorno
 
 	# 0.2. Inserção de um nó
-	def insertNode(self,key,counter=int(0)):
+
+	def insertNode(self,key):
 		if key < self.key: # Checar filho à esquerda 
 			if self.leftSon is None:
 			# Não há filho à esquerda
-				node = BinNode(key,counter)
+				node = BinNode(key)
 				self.leftSon = node
 				node.father = self
 			else:
 			# Há filho à esquerda (recursão)
-				self.leftSon.insertNode(key,counter)
+				self.leftSon.insertNode(key)
 		else: # Checar filho à direita
 			if self.rightSon is None:
 			# Não há filho à direita
-				node = BinNode(key,counter)
+				node = BinNode(key)
 				self.rightSon = node
 				node.father = self
 			else:
 			# Há filho à direita (recursão)
-				self.rightSon.insertNode(key,counter)
+				self.rightSon.insertNode(key)
 		pass
 
 	# 0.3. Busca um nó na árvore (retorna o nó, caso encontre)
@@ -106,7 +103,22 @@ class BinNode(object):
 		print('\'{}\'\t{}'.format(self.key,self.counter))
 		pass	
 	
-	# 0.6. Outras funcionalidades (menor, maior, removeMenor, addCount)
+	# 0.6. Outras funcionalidades (altura,menor, maior, removeMenor, addCount)
+	def altura(self): # Altura da árvore = 1 + altura da maior subárvore
+		if self is None:
+			return -1
+		else:
+			# Definir subárvore de maior altura
+			heightL = self.leftSon.altura() if self.leftSon is not None else -1
+			heightR = self.rightSon.altura() if self.rightSon is not None else -1
+			maior = heightL if heightL>=heightR else heightR
+			self.height = maior + 1 # Atribuir altura relativa do nó
+			return maior + 1 # altura >= 0
+
+	def balanceFactor(self): # Fator de balanceamento
+		altura = (self.leftSon.altura() if self.leftSon is not None else -1) - (self.rightSon.altura() if self.rightSon is not None else -1)
+		return altura
+
 	def menor(self): # MENOR CHAVE
 		if self.leftSon is None:
 			return self
@@ -130,7 +142,7 @@ class BinNode(object):
 	def addCount(self,key):
 		if self.findNode(key) is not None:
 			node = self.findNode(key)
-			if node.counter >= 0:
+			if node.counter > 0:
 				node.counter += 1
 				return node.counter
 			else:
@@ -140,21 +152,18 @@ class BinNode(object):
 
 
 ############################## MAIN #####################################
- # TESTES VIA TERMINAL
+# TESTES VIA TERMINAL
 if __name__ == '__main__':
 
 	entrada = input('Chave String:\t')
 	print('Criando Árvore com chave (raíz) \'{}\'...'.format(entrada))
-	arvore = BinNode(entrada,int(input('Valor Numérico a inserir:\t')))
+	arvore = BinNode(entrada)
 
 	while True:
 		option = int(input('[1]Inserir(node = chave + [valor])\n[2]Buscar(chave)\n[3]Remover(chave)\n[4]Imprimir Árvore\n[5]Adicionar Ocorrência\t\n'))
 
 		if option == 1:
-			key = input('Inserir Chave String\t')
-			counter = int(input('Inserir Valor numérico\t'))
-			
-			arvore.insertNode(key,counter)
+			arvore.insertNode(input('Inserir Chave String\t'))
 			input('Qualquer tecla.')
 
 		elif option == 2:
@@ -195,4 +204,6 @@ if __name__ == '__main__':
 				print('Não encontrado.')
 			input('Qualquer tecla.')
 
-		else: sys.exit('opção [{}] inexistente'.format(option))
+		else:
+			print('opção [{}] inexistente'.format(option))
+			break
