@@ -19,13 +19,13 @@
   
   - Implementar Ordenação DECRESCENTE das ocorrências das palavras (QuickSort)
         
-        Adaptar ordenação às listas de Ocorrências das Palavras ------------------------ DUNNO
+        Adaptar ordenação às listas de Ocorrências das Palavras ------------------------ LATER
         Adaptar ordenação às árvores de Ocorrências das Palavras ----------------------- LATER
 
   - Implementar Estruturas de Dados
         
         HashTable ( colisões com Linked List, W Hash) ---------------------------------- NEXT
-        Árvores Binárias (AVL e RedBlack) ---------------------------------------------- NOW
-        Árvores B ---------------------------------------------------------------------- NEXT
+        Árvores Binárias (AVL e RedBlack) ---------------------------------------------- DONE
+        Árvores B ---------------------------------------------------------------------- CURRENT
         
   - Gerar as saídas
