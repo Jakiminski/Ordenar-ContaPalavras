@@ -173,7 +173,7 @@ class RBNode(object):
 		else: 
 			return None
 
-	def addCount(self,key): # Adiciona ocorrência da palavra
+	def addCounter(self,key): # Adiciona ocorrência da palavra
 		if self.findNode(key) is not None:
 			# Elemento já inserido -> Incrementar qnt de ocorrencias
 			node = self.findNode(key)
@@ -185,7 +185,7 @@ class RBNode(object):
 		else:
 			# Inserir elemento (coloring incluso)
 			self.insertNode(key)
-			return self.findNode(key).counter
+			return -1 if self.findNode(key) is None else self.findNode(key).counter
 
 ############################## MAIN #####################################
 # TESTES VIA TERMINAL
