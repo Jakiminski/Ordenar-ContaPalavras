@@ -50,12 +50,16 @@ def getWordList(string):
 
 #1.5. Recebe texto e gera lista de palavras, sem pontuação e sem CASEUPPER
 def strListNoCommaOrDot(string):
-	print(type(string))
 	Lista = string.split() # Separa as palavras, com delimitador ' ' (blankspace)
 	wordList = [] # Lista de palavras
 	for word in Lista:
 	    wordList.append(word.strip('.,;_><+-="\'')) # Retira pontuações de cada palavra
 	return wordList
+
+#1.6. Escreve arquivo de saída
+def outputFile(string):
+	pass
+
 
 # 2. QUICKSORT
 

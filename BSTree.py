@@ -51,11 +51,11 @@ class BinNode(object):
 				else:
 					return None
 			else: # Encontrou a chave existente
-				print('Chave Encontrada! {}'.format(self.key))
+				return self
 		else:
 			print('Chave não encontrada.')
+			return None
 		
-		return self
 
 	# 0.4. Remoção de um nó na árvore (retorna o nó-filho, reorganizando a estrutura)
 	def removeNode(self,key):

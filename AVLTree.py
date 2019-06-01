@@ -77,11 +77,10 @@ class AVLNode(object):#(1/5) (NENHUM BUG)
 				else:
 					return None
 			else: # Encontrou a chave existente
-				print('Chave Encontrada! {}'.format(self.key))
+				return self
 		else:
 			print('Chave não encontrada.')
-		
-		return self
+			return None
 
 	# 1.5. Imprimir árvore (preOrder,inOrder,posOrder)
 	def preOrder(self):

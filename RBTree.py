@@ -17,9 +17,9 @@ class RBNode(object):
 	# 1.2. Inserção de nó
 
 	def insertNode(self,key):
-		# Inserir nó	
+		# Inserir nó
+		node = None	
 		if key.lower() < self.key: # Checar filho à esquerda 
-			node = None
 			if self.leftSon is None:
 			# Não há filho à esquerda
 				node = RBNode(key)
@@ -60,10 +60,10 @@ class RBNode(object):
 				else:
 					return None
 			else: # Encontrou a chave existente
-				print('Chave Encontrada! {}'.format(self.key))
+				return self
 		else:
 			print('Chave não encontrada.')
-		return self
+			return None
 
 	# 1.5. Imprimir árvore (preOrder,inOrder,posOrder)
 	def preOrder(self):
@@ -102,9 +102,6 @@ class RBNode(object):
 			self.rightSon = node.leftSon 
 			# apadrinhado
 			self.parent, node.leftSon = node, self
-			# atualizar altura dos nós e suas subárvores
-			self.altura()
-			node.altura()
 		return self
 
 	def rotateRight(self): # Rotação do nó
@@ -117,9 +114,6 @@ class RBNode(object):
 			self.leftSon = node.rightSon 
 			# apadrinhado
 			self.parent, node.rightSon = node, self
-			# atualizar altura dos nós e suas subárvores
-			self.altura()
-			node.altura()
 		return self
 
 	def coloring(self): # Muda cor do nó
@@ -128,29 +122,33 @@ class RBNode(object):
 		else:
 			if self.parent.color is 'BLACK':
 				pass
-			if self.uncle().color is 'RED':
-				# Tio Vermelho --> Pai e Tio Pretos e Avô Vermelho
-				self.parent.color = 'BLACK'
-				self.uncle().color = 'BLACK'
-				grandpa = self.grandpa()
-				grandpa.color = 'RED'
-				grandpa.coloring() # Colorir recursivamente
+			if self.uncle() is not None:
+				if self.uncle().color is 'RED':
+					# Tio Vermelho --> Pai e Tio Pretos e Avô Vermelho
+					self.parent.color = 'BLACK'
+					self.uncle().color = 'BLACK'
+					grandpa = self.grandpa()
+					grandpa.color = 'RED'
+					grandpa.coloring() # Colorir recursivamente
 			else:
-				if self.key > self.parent.key and self.key <= self.grandpa().key:
-					self.parent.rotateLeft()
-					node = self.leftSon
-				else:
-					self.parent.rotateRight()
-					node = self.rightSon
+				node = None
+				if self.parent is not None and self.grandpa() is not None:
+					if self.key > self.parent.key and self.key <= self.grandpa().key:
+						self.parent.rotateLeft()
+						node = self.leftSon
+					else:
+						self.parent.rotateRight()
+						node = self.rightSon
 
-				node.parent.color = 'BLACK'
-				if node.grandpa() is not None:
-					node.grandpa().color = 'RED'
+				if node is not None:
+					node.parent.color = 'BLACK'
+					if node.grandpa() is not None:
+						node.grandpa().color = 'RED'
 
-				if node.key <= node.parent.key and node.key <= node.grandpa().key:
-					node.grandpa().rotateRight()
-				else:
-					node.grandpa().rotateLeft()
+					if node.key <= node.parent.key and node.key <= node.grandpa().key:
+						node.grandpa().rotateRight()
+					else:
+						node.grandpa().rotateLeft()
 		pass
 
 
