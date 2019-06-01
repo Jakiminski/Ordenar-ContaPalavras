@@ -8,7 +8,7 @@ import random #.seed(),.randint(),.randrange(),.shuffle(obj)
 # 1. OPTIONS
 
 #1.0. Limpa console/terminal # LAMBDA FUNCTION
-def clear:
+def clear():
 	os.system('cls' if os.name=='nt' else 'clear') # cls for Windows, clear for other OS
 	pass
 
@@ -37,29 +37,30 @@ def stringToNumber(word):
 		sumChar += ord(letter) # conversão de cada caractere
 	return sumChar # valor final da soma
 
-#1.4. Aproximação Log2 N
-def log(a,b=int(2)):
-	if a <= 0 and b <= 0:
-		return -1
-	else:
-	    result, garbage = 0, 0
-	    quo = a
-	    while (quo>b-1):
-	    	garbage = int(quo % b)
-	        quo = int(quo / b)
-	        result += 1
-	    #print(quo)
-        #print('log{} {} = {}'.format(b,a,result))
-	    return result
-
-#1.5. Lê e recebe palavras do arquivo fonte (split, sprint)
-def getWordList(fileInput,):
-lista = [] # lista vazia
-	with open(fileInput,'r') as file:
-		line = file.readlines()# lendo 1 linha por vez
-		lista.extend(line.split()) # append all words from line(list), not the list itself as object (as .append())
-		
+#1.4. Lê e recebe palavras do arquivo fonte (split, sprint)
+def getWordList(string):
+	print('Gerando lista de palavras... {}'.format(string))
+	wordList = [] # lista vazia
+	with open(string,'r') as file:
+		lines = file.readlines()# lendo 1 linha por vez
+		for line in lines:
+			wordList.extend(strListNoCommaOrDot(line))
+		print(wordList)
 		return wordList
+
+#1.5. Recebe texto e gera lista de palavras, sem pontuação e sem CASEUPPER
+def strListNoCommaOrDot(string):
+	Lista = string.split() # Separa as palavras, com delimitador ' ' (blankspace)
+	wordList = [] # Lista de palavras
+	for word in Lista:
+	    wordList.append(word.strip('.,;_><+-="\'')) # Retira pontuações de cada palavra
+	return wordList
+
+#1.6. Escreve arquivo de saída
+def outputFile(string):
+	pass
+
+
 # 2. QUICKSORT
 
 '''
